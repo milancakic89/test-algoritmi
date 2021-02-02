@@ -29,21 +29,26 @@ function distinctNumbers(arr){
 
 function letterCount(string){
     let output = [];
-    let letters = {}
-    for(let i =0; i< string.length; i++){
-        let current = string[i].toLowerCase();
-        if(current in letters){
-            console.log(current);
-            letters[current]++;
-        }else{
-            letters[current] = 0;
+    let wordsAndNumbers = new RegExp(/[^A-Za-z0-9]+/);
+    let summ;
+    for(let i = 0; i < arr.length; i++){
+        summ = 1;
+        for(let j = 0; j < arr.length; j++){          
+            if(j != i){
+                summ *= arr[j];
+            }
         }
+        output.push(summ);
     }
-    for(const [key, value] of Object.entries(letters)){
-        output.push([key, value]);
-    }
-
-    return output;
+    let removePunc = output.filter(letter =>{
+        if(letter == " "){
+            return false;
+        }
+        if(wordsAndNumbers.test(letter)){
+           return true
+        }
+    })
+    return removePunc;
 
 }
 
@@ -62,14 +67,17 @@ function targetSum(arr, target){
     return output;
 }
 function multiplyOthers(arr){
-    let output = 0;
+    let output = [];
+    let summ;
     for(let i = 0; i < arr.length; i++){
-        for(let j = 0; j < arr.length; j++){
+        summ = 1;
+        for(let j = 0; j < arr.length; j++){          
             if(j != i){
-                output *= j;
+                summ *= arr[j];
             }
         }
+        output.push(summ);
     }
     return output;
 }
-multiplyOthers([])
+console.log(multiplyOthers([3,5,6,8]));
